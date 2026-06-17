@@ -1,0 +1,16 @@
+# Design drafts / working files
+direction-a-dark.html
+direction-a-dark-2.html
+direction-a-dark-3.html
+audit-directions.html
+
+# Source assets (large binaries)
+*.jpg
+*.pdf
+
+# Open Design internal files
+*.artifact.json
+
+# OS
+.DS_Store
+Thumbs.db

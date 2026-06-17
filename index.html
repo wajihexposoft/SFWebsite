@@ -1,0 +1,509 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Sourceful Technologies Inc — Digital Agency</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --canvas:#0C1A33; --surface:#112038;
+      --card:rgba(255,255,255,.035); --card-hover:rgba(255,255,255,.065);
+      --border:rgba(255,255,255,.08); --border-strong:rgba(255,255,255,.14);
+      --brand-blue:#1E4F9E; --lime:#8DC63F; --lime-dark:#6EA52E;
+      --lime-glow:rgba(141,198,63,.12); --blue-glow:rgba(30,79,158,.25);
+      --text:#FFF; --text-muted:rgba(255,255,255,.55); --text-meta:rgba(255,255,255,.35);
+      --font:'Plus Jakarta Sans',system-ui,sans-serif;
+      --mono:'JetBrains Mono','Fira Code',Menlo,monospace;
+      --max-w:1240px; --gutter:48px;
+      --radius-sm:10px; --radius-md:16px; --radius-lg:24px;
+      --motion:200ms cubic-bezier(.2,0,0,1);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--font);background:var(--canvas);color:var(--text);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+    a{text-decoration:none;color:inherit}
+    .container{max-width:var(--max-w);margin:0 auto;padding:0 var(--gutter)}
+    @media(max-width:768px){:root{--gutter:20px}}
+
+    /* NAV */
+    .nav{position:sticky;top:0;z-index:100;background:transparent;backdrop-filter:none;border-bottom:1px solid transparent;transition:background .35s cubic-bezier(.2,0,0,1),backdrop-filter .35s,border-color .35s}
+    .nav.nav-scrolled{background:rgba(12,26,51,.88);backdrop-filter:blur(16px);border-bottom-color:var(--border)}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px;max-width:var(--max-w);margin:0 auto;padding:0 var(--gutter)}
+    .nav-logo{display:flex;align-items:center;gap:12px}
+    .nav-wordmark{display:flex;flex-direction:column;gap:1px}
+    .nav-wordmark-primary{font-size:15px;font-weight:800;color:#fff;letter-spacing:.14em;line-height:1}
+    .nav-wordmark-secondary{font-size:10px;font-weight:500;color:var(--text-meta);letter-spacing:.16em;line-height:1}
+    .nav-links{display:flex;align-items:center;gap:36px;list-style:none}
+    .nav-links a{font-size:14px;font-weight:500;color:var(--text-muted);transition:color var(--motion)}
+    .nav-links a:hover,.nav-links a.active{color:var(--text)}
+    .nav-links a.active{color:var(--lime)}
+    .nav-cta{background:var(--lime);color:#0C1A33;font-size:13px;font-weight:700;padding:10px 20px;border-radius:var(--radius-sm);transition:background var(--motion)}
+    .nav-cta:hover{background:var(--lime-dark)}
+    .nav-mobile-hide{display:flex;align-items:center;gap:36px}
+    @media(max-width:768px){.nav-mobile-hide{display:none}}
+
+    /* HERO */
+    .hero{position:relative;padding:100px 0 90px;overflow:hidden}
+    .hero-glow-1{position:absolute;top:-120px;right:-180px;width:700px;height:700px;border-radius:50%;background:radial-gradient(circle,var(--blue-glow) 0%,transparent 65%);pointer-events:none}
+    .hero-glow-2{position:absolute;bottom:-100px;left:-80px;width:500px;height:500px;border-radius:50%;background:radial-gradient(circle,var(--lime-glow) 0%,transparent 65%);pointer-events:none}
+    .hero-inner{position:relative;z-index:1;display:grid;grid-template-columns:1fr 360px;gap:64px;align-items:center;max-width:var(--max-w);margin:0 auto;padding:0 var(--gutter)}
+    @media(max-width:900px){.hero-inner{grid-template-columns:1fr}.hero-visual{display:none}}
+    .hero-tag{display:inline-flex;align-items:center;gap:8px;background:var(--lime-glow);border:1px solid rgba(141,198,63,.28);color:#A8D95F;font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;padding:7px 16px;border-radius:100px;margin-bottom:28px}
+    .hero-tag::before{content:'';width:6px;height:6px;border-radius:50%;background:var(--lime);flex-shrink:0}
+    .hero-headline{font-size:clamp(42px,5.5vw,68px);font-weight:900;line-height:1.06;letter-spacing:-.025em;color:var(--text);margin-bottom:24px}
+    .hero-headline em{font-style:normal;color:var(--lime)}
+    .hero-sub{font-size:17px;font-weight:400;color:var(--text-muted);line-height:1.7;max-width:520px;margin-bottom:40px}
+    .hero-btns{display:flex;gap:14px;align-items:center;flex-wrap:wrap;margin-bottom:56px}
+    .btn-lime{display:inline-flex;align-items:center;gap:8px;background:var(--lime);color:#0C1A33;font-size:14px;font-weight:700;padding:14px 28px;border-radius:var(--radius-sm);transition:background var(--motion)}
+    .btn-lime:hover{background:var(--lime-dark)}
+    .btn-ghost{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border-strong);color:var(--text-muted);font-size:14px;font-weight:600;padding:13px 24px;border-radius:var(--radius-sm);transition:border-color var(--motion),color var(--motion)}
+    .btn-ghost:hover{border-color:rgba(255,255,255,.3);color:var(--text)}
+    .hero-stats{display:flex;gap:0;border-top:1px solid var(--border);padding-top:36px}
+    .stat{flex:1;padding-right:32px;border-right:1px solid var(--border)}
+    .stat:last-child{border-right:none;padding-right:0;padding-left:32px}
+    .stat:not(:first-child):not(:last-child){padding-left:32px}
+    .stat-num{font-size:36px;font-weight:900;color:var(--lime);line-height:1;margin-bottom:6px;letter-spacing:-.02em}
+    .stat-label{font-size:13px;font-weight:500;color:var(--text-meta);line-height:1.4}
+
+    /* HERO VISUAL — CODE WINDOW */
+    .hero-visual{position:relative;display:flex;align-items:center;justify-content:center}
+    .hero-grid-bg{position:absolute;inset:-60px;background-image:radial-gradient(circle,rgba(255,255,255,.04) 1px,transparent 1px);background-size:28px 28px;pointer-events:none;z-index:0}
+    .code-window{position:relative;z-index:1;width:100%;background:#060D1C;border:1px solid rgba(255,255,255,.1);border-radius:14px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,.55),0 0 0 1px rgba(141,198,63,.1);transform:perspective(1200px) rotateY(-3deg) rotateX(1.5deg)}
+    .code-chrome{display:flex;align-items:center;gap:8px;padding:11px 16px;background:rgba(255,255,255,.03);border-bottom:1px solid rgba(255,255,255,.07)}
+    .code-chrome-dots{display:flex;gap:6px}
+    .code-chrome-dot{width:11px;height:11px;border-radius:50%;flex-shrink:0}
+    .code-chrome-filename{font-family:var(--mono);font-size:11px;color:rgba(255,255,255,.3);margin-left:10px}
+    .code-body{padding:18px 20px 22px;font-family:var(--mono);font-size:12px;line-height:1.72}
+    .code-row{display:flex;gap:18px;min-height:20.6px}
+    .code-ln{color:rgba(255,255,255,.15);min-width:16px;text-align:right;user-select:none;flex-shrink:0}
+    .code-txt{color:rgba(255,255,255,.80);white-space:pre}
+    .kw{color:#79B8FF} .str{color:#A8D95F} .fn{color:#FFD580} .jsx{color:#FF9580}
+    .cm{color:rgba(255,255,255,.28);font-style:italic} .attr{color:#B0D9FF} .op{color:rgba(255,255,255,.42)}
+    .cursor{display:inline-block;width:2px;height:13px;background:#8DC63F;vertical-align:text-bottom;margin-left:1px;animation:blink 1.1s step-end infinite}
+    @keyframes blink{50%{opacity:0}}
+
+    /* CLIENTS */
+    .clients{border-top:1px solid var(--border);border-bottom:1px solid var(--border);padding:28px 0}
+    .clients-inner{display:flex;align-items:center;gap:40px;max-width:var(--max-w);margin:0 auto;padding:0 var(--gutter)}
+    .clients-label{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--text-meta);white-space:nowrap;flex-shrink:0}
+    .clients-divider{width:1px;height:20px;background:var(--border);flex-shrink:0}
+    .clients-list{display:flex;align-items:center;gap:40px;flex-wrap:wrap}
+    .client-name{font-size:13px;font-weight:700;color:var(--text-meta);letter-spacing:.06em;text-transform:uppercase}
+
+    /* SECTION */
+    .section{padding:96px 0}
+    .section-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--lime);margin-bottom:16px}
+    .section-heading{font-size:clamp(32px,3.5vw,48px);font-weight:800;letter-spacing:-.02em;line-height:1.12;color:var(--text);margin-bottom:16px}
+    .section-sub{font-size:16px;color:var(--text-muted);line-height:1.7;max-width:560px}
+    .section-header-split{display:flex;justify-content:space-between;align-items:flex-end;margin-bottom:56px;gap:40px}
+
+    /* SERVICES */
+    .services-bg{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+    .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
+    @media(max-width:900px){.services-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:540px){.services-grid{grid-template-columns:1fr}}
+    .service-card{background:var(--surface);padding:40px 36px;display:flex;flex-direction:column;gap:16px;transition:background var(--motion);cursor:default}
+    .service-card:hover{background:#182B4A}
+    .service-num{font-size:13px;font-weight:700;color:var(--lime);letter-spacing:.08em;opacity:.7}
+    .service-title{font-size:19px;font-weight:800;color:var(--text);line-height:1.25}
+    .service-desc{font-size:14px;color:var(--text-muted);line-height:1.65;flex:1}
+    .service-arrow{font-size:18px;color:var(--lime);opacity:0;transition:opacity var(--motion),transform var(--motion);margin-top:auto;align-self:flex-start}
+    .service-card:hover .service-arrow{opacity:1;transform:translateX(4px)}
+    .section-cta-row{display:flex;justify-content:center;margin-top:48px}
+
+    /* WORK */
+    .work-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    @media(max-width:900px){.work-grid{grid-template-columns:1fr}}
+    .work-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden;transition:border-color var(--motion),background var(--motion),transform var(--motion);cursor:default}
+    .work-card:hover{border-color:rgba(141,198,63,.3);background:var(--card-hover);transform:translateY(-3px)}
+    .work-card-visual{height:210px;display:flex;align-items:center;justify-content:center}
+    .work-card-visual-rx{background:linear-gradient(135deg,#0D2B52 0%,#1A4A8A 100%)}
+    .work-card-visual-cox{background:linear-gradient(135deg,#1A2A1A 0%,#2A4420 100%)}
+    .work-card-visual-kbb{background:linear-gradient(135deg,#2A1A08 0%,#4A3010 100%)}
+    .work-card-body{padding:28px 28px 32px}
+    .work-card-tag{font-size:10px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--lime);margin-bottom:10px}
+    .work-card-title{font-size:18px;font-weight:800;color:var(--text);margin-bottom:10px;line-height:1.2}
+    .work-card-desc{font-size:14px;color:var(--text-muted);line-height:1.65}
+    .device-browser{width:100%;height:100%;display:flex;flex-direction:column;background:#060D1C}
+    .browser-bar{display:flex;align-items:center;gap:8px;padding:8px 12px;background:rgba(255,255,255,.04);border-bottom:1px solid rgba(255,255,255,.06);flex-shrink:0}
+    .browser-dots{display:flex;gap:5px}
+    .browser-dot{width:8px;height:8px;border-radius:50%;flex-shrink:0}
+    .browser-url-bar{flex:1;height:18px;background:rgba(255,255,255,.06);border-radius:4px}
+    .browser-screen{flex:1;background:linear-gradient(160deg,#0A1628 0%,#0D1E3A 100%);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+    .device-phone-wrap{width:100%;height:100%;display:flex;align-items:center;justify-content:center;background:#060D1C;position:relative}
+    .device-phone{width:80px;height:160px;background:#080F20;border-radius:16px;border:1.5px solid rgba(255,255,255,.13);display:flex;flex-direction:column;overflow:hidden;box-shadow:0 8px 24px rgba(0,0,0,.5)}
+    .phone-status-bar{height:16px;background:#080F20;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .phone-status-bar::after{content:'';width:30px;height:5px;background:rgba(255,255,255,.12);border-radius:3px}
+    .phone-screen-area{flex:1;background:linear-gradient(160deg,#0A1628 0%,#0D1E3A 100%);display:flex;align-items:center;justify-content:center}
+    .phone-chin-bar{height:14px;background:#080F20;display:flex;align-items:center;justify-content:center;flex-shrink:0}
+    .phone-chin-bar::after{content:'';width:28px;height:4px;background:rgba(255,255,255,.14);border-radius:2px}
+    .placeholder-content{display:flex;flex-direction:column;align-items:center;gap:6px;opacity:.28}
+    .placeholder-icon-box{width:28px;height:28px;border:1.5px dashed rgba(255,255,255,.6);border-radius:5px;display:flex;align-items:center;justify-content:center}
+    .work-platform-tag{position:absolute;top:10px;right:10px;font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--lime);background:rgba(141,198,63,.1);border:1px solid rgba(141,198,63,.22);padding:3px 8px;border-radius:4px;z-index:2}
+
+    /* WHY */
+    .why-bg{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+    .why-grid{display:grid;grid-template-columns:1fr 1fr;gap:80px;align-items:center}
+    @media(max-width:800px){.why-grid{grid-template-columns:1fr}}
+    .why-point{display:flex;gap:20px;padding:28px 0;border-bottom:1px solid var(--border)}
+    .why-point:last-child{border-bottom:none}
+    .why-point-marker{width:36px;height:36px;border-radius:10px;background:var(--lime-glow);border:1px solid rgba(141,198,63,.25);display:flex;align-items:center;justify-content:center;flex-shrink:0;margin-top:2px}
+    .why-point-marker svg{width:16px;height:16px}
+    .why-point-content h4{font-size:16px;font-weight:700;color:var(--text);margin-bottom:6px}
+    .why-point-content p{font-size:14px;color:var(--text-muted);line-height:1.65}
+    .why-emblem-wrap{display:flex;align-items:center;justify-content:center;position:relative}
+    .why-emblem-bg{position:absolute;inset:0;background:radial-gradient(circle at center,var(--blue-glow) 0%,transparent 70%)}
+    .why-emblem-content{position:relative;z-index:1;text-align:center}
+    .why-emblem-label{font-size:11px;font-weight:600;letter-spacing:.12em;text-transform:uppercase;color:var(--lime);margin-top:24px}
+
+    /* TESTIMONIAL */
+    .testimonial-card{background:var(--brand-blue);border-radius:var(--radius-lg);padding:56px 64px;position:relative;overflow:hidden}
+    @media(max-width:768px){.testimonial-card{padding:40px 28px}}
+    .testimonial-card::before{content:'';position:absolute;top:-60px;right:-60px;width:300px;height:300px;border-radius:50%;background:radial-gradient(circle,rgba(141,198,63,.2) 0%,transparent 65%);pointer-events:none}
+    .testimonial-quote-mark{font-size:80px;line-height:.6;color:var(--lime);opacity:.4;font-weight:900;margin-bottom:28px;position:relative;z-index:1}
+    .testimonial-text{font-size:clamp(18px,2.2vw,24px);font-weight:600;color:#fff;line-height:1.55;max-width:760px;margin-bottom:36px;position:relative;z-index:1}
+    .testimonial-meta{display:flex;align-items:center;gap:16px;position:relative;z-index:1}
+    .testimonial-avatar{width:48px;height:48px;border-radius:50%;background:rgba(141,198,63,.25);border:2px solid rgba(141,198,63,.4);display:flex;align-items:center;justify-content:center;font-size:18px;font-weight:800;color:var(--lime);flex-shrink:0}
+    .testimonial-name{font-size:15px;font-weight:700;color:#fff}
+    .testimonial-role{font-size:13px;color:rgba(255,255,255,.6);margin-top:2px}
+
+    /* CTA */
+    .cta-section{padding:100px 0;text-align:center;position:relative;overflow:hidden}
+    .cta-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:400px;border-radius:50%;background:radial-gradient(ellipse,var(--blue-glow) 0%,transparent 70%);pointer-events:none}
+    .cta-inner{position:relative;z-index:1}
+    .cta-heading{font-size:clamp(36px,4.5vw,60px);font-weight:900;letter-spacing:-.025em;line-height:1.1;color:var(--text);margin-bottom:20px}
+    .cta-heading em{font-style:normal;color:var(--lime)}
+    .cta-sub{font-size:17px;color:var(--text-muted);line-height:1.65;max-width:520px;margin:0 auto 40px}
+    .cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+    .cta-emblem-accent{margin:40px auto 0;display:flex;justify-content:center;opacity:.15}
+
+    /* FOOTER */
+    .footer{background:#080F20;border-top:1px solid var(--border);padding:60px 0 40px}
+    .footer-inner{max-width:var(--max-w);margin:0 auto;padding:0 var(--gutter)}
+    .footer-top{display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:48px;padding-bottom:48px;border-bottom:1px solid var(--border);margin-bottom:32px}
+    @media(max-width:900px){.footer-top{grid-template-columns:1fr 1fr}}
+    @media(max-width:540px){.footer-top{grid-template-columns:1fr}}
+    .footer-brand p{font-size:14px;color:var(--text-meta);line-height:1.7;margin-top:16px;max-width:280px}
+    .footer-logo-wrap{display:flex;align-items:center;gap:12px}
+    .footer-wordmark-primary{font-size:14px;font-weight:800;color:#fff;letter-spacing:.12em;line-height:1}
+    .footer-wordmark-secondary{font-size:9px;font-weight:500;color:var(--text-meta);letter-spacing:.14em;line-height:1}
+    .footer-col h5{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-meta);margin-bottom:20px}
+    .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+    .footer-col ul li a{font-size:14px;color:rgba(255,255,255,.45);transition:color var(--motion)}
+    .footer-col ul li a:hover{color:rgba(255,255,255,.8)}
+    .footer-bottom{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+    .footer-copy{font-size:13px;color:var(--text-meta)}
+    .footer-socials{display:flex;gap:16px}
+    .social-btn{width:36px;height:36px;border:1px solid var(--border);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--text-meta);font-size:14px;font-weight:700;transition:border-color var(--motion),color var(--motion)}
+    .social-btn:hover{border-color:var(--lime);color:var(--lime)}
+
+    /* ANIMATIONS */
+    @keyframes fadeUp{from{opacity:0;transform:translateY(24px)}to{opacity:1;transform:none}}
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}}
+    .js .hero-content .hero-tag{animation:fadeUp .55s .05s cubic-bezier(.2,0,0,1) both}
+    .js .hero-content .hero-headline{animation:fadeUp .55s .15s cubic-bezier(.2,0,0,1) both}
+    .js .hero-content .hero-sub{animation:fadeUp .55s .24s cubic-bezier(.2,0,0,1) both}
+    .js .hero-content .hero-btns{animation:fadeUp .55s .32s cubic-bezier(.2,0,0,1) both}
+    .js .hero-content .hero-stats{animation:fadeUp .55s .42s cubic-bezier(.2,0,0,1) both}
+    .js .hero-visual{animation:fadeUp .65s .28s cubic-bezier(.2,0,0,1) both}
+    .js .reveal{opacity:0;transform:translateY(20px);transition:opacity .55s cubic-bezier(.2,0,0,1),transform .55s cubic-bezier(.2,0,0,1)}
+    .js .reveal.is-visible{opacity:1;transform:none}
+    .js .stagger>*{opacity:0;transform:translateY(14px);transition:opacity .45s cubic-bezier(.2,0,0,1),transform .45s cubic-bezier(.2,0,0,1)}
+    .js .stagger.is-visible>*:nth-child(1){opacity:1;transform:none;transition-delay:0ms}
+    .js .stagger.is-visible>*:nth-child(2){opacity:1;transform:none;transition-delay:70ms}
+    .js .stagger.is-visible>*:nth-child(3){opacity:1;transform:none;transition-delay:140ms}
+    .js .stagger.is-visible>*:nth-child(4){opacity:1;transform:none;transition-delay:210ms}
+    .js .stagger.is-visible>*:nth-child(5){opacity:1;transform:none;transition-delay:280ms}
+    .js .stagger.is-visible>*:nth-child(6){opacity:1;transform:none;transition-delay:350ms}
+    .js .code-row{opacity:0;transform:translateX(-8px);transition:opacity .35s cubic-bezier(.2,0,0,1),transform .35s cubic-bezier(.2,0,0,1)}
+    .js .code-row.line-in{opacity:1;transform:none}
+  </style>
+</head>
+<body>
+
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <svg width="38" height="38" viewBox="0 0 100 100" fill="none">
+          <path d="M 13 48 L 46 13 L 80 33" stroke="#8DC63F" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M 20 67 L 54 87 L 87 52" stroke="#8DC63F" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M 22 68 L 76 34" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round"/>
+        </svg>
+        <div class="nav-wordmark">
+          <span class="nav-wordmark-primary">SOURCEFUL</span>
+          <span class="nav-wordmark-secondary">TECHNOLOGIES INC</span>
+        </div>
+      </a>
+      <nav class="nav-mobile-hide">
+        <ul class="nav-links">
+          <li><a href="services.html">Services</a></li>
+          <li><a href="work.html">Our Work</a></li>
+          <li><a href="#about">About</a></li>
+        </ul>
+      </nav>
+      <a href="contact.html" class="nav-cta">Get in Touch</a>
+    </div>
+  </header>
+
+  <section class="hero">
+    <div class="hero-glow-1"></div>
+    <div class="hero-glow-2"></div>
+    <div class="hero-inner">
+      <div class="hero-content">
+        <div class="hero-tag">Creative Digital Agency</div>
+        <h1 class="hero-headline">We Engineer<br><em>Digital Products</em><br>That Perform</h1>
+        <p class="hero-sub">From mobile apps to cloud infrastructure — we build end-to-end digital solutions that drive real business results for startups and enterprise clients alike.</p>
+        <div class="hero-btns">
+          <a href="work.html" class="btn-lime">See Our Work <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <a href="services.html" class="btn-ghost">Explore Services</a>
+        </div>
+        <div class="hero-stats">
+          <div class="stat"><div class="stat-num" data-count="6" data-suffix="+">6+</div><div class="stat-label">Years in Business</div></div>
+          <div class="stat"><div class="stat-num" data-count="50" data-suffix="+">50+</div><div class="stat-label">Projects Delivered</div></div>
+          <div class="stat"><div class="stat-num" data-count="3" data-suffix="">3</div><div class="stat-label">Cloud Platforms</div></div>
+        </div>
+      </div>
+      <div class="hero-visual">
+        <div class="hero-grid-bg"></div>
+        <div class="code-window">
+          <div class="code-chrome">
+            <div class="code-chrome-dots">
+              <div class="code-chrome-dot" style="background:#FF5F57"></div>
+              <div class="code-chrome-dot" style="background:#FFBD2E"></div>
+              <div class="code-chrome-dot" style="background:#28C840"></div>
+            </div>
+            <span class="code-chrome-filename">dashboard.tsx</span>
+          </div>
+          <div class="code-body">
+            <div class="code-row"><span class="code-ln">1</span><span class="code-txt"><span class="cm">// Rx2GO · Prescription Delivery</span></span></div>
+            <div class="code-row"><span class="code-ln">2</span><span class="code-txt"><span class="kw">import</span> <span class="op">{</span> useState <span class="op">}</span> <span class="kw">from</span> <span class="str">'react'</span></span></div>
+            <div class="code-row"><span class="code-ln">3</span><span class="code-txt"><span class="kw">import</span> <span class="op">{</span> <span class="fn">OrderCard</span> <span class="op">}</span> <span class="kw">from</span> <span class="str">'@/components'</span></span></div>
+            <div class="code-row"><span class="code-ln">4</span><span class="code-txt"><span class="kw">import</span> <span class="op">{</span> <span class="fn">usePrescriptions</span> <span class="op">}</span> <span class="kw">from</span> <span class="str">'@/api'</span></span></div>
+            <div class="code-row"><span class="code-ln">5</span><span class="code-txt"> </span></div>
+            <div class="code-row"><span class="code-ln">6</span><span class="code-txt"><span class="kw">export default function</span> <span class="fn">Dashboard</span><span class="op">() {</span></span></div>
+            <div class="code-row"><span class="code-ln">7</span><span class="code-txt">  <span class="kw">const</span> <span class="op">{</span> orders <span class="op">} =</span> <span class="fn">usePrescriptions</span><span class="op">()</span></span></div>
+            <div class="code-row"><span class="code-ln">8</span><span class="code-txt"> </span></div>
+            <div class="code-row"><span class="code-ln">9</span><span class="code-txt">  <span class="kw">return</span> <span class="op">(</span></span></div>
+            <div class="code-row"><span class="code-ln">10</span><span class="code-txt">    <span class="jsx">&lt;Screen&gt;</span></span></div>
+            <div class="code-row"><span class="code-ln">11</span><span class="code-txt">      <span class="op">{</span>orders.<span class="fn">map</span><span class="op">(</span>order <span class="op">=&gt; (</span></span></div>
+            <div class="code-row"><span class="code-ln">12</span><span class="code-txt">        <span class="jsx">&lt;OrderCard</span></span></div>
+            <div class="code-row"><span class="code-ln">13</span><span class="code-txt">          <span class="attr">key</span><span class="op">={</span>order.id<span class="op">}</span></span></div>
+            <div class="code-row"><span class="code-ln">14</span><span class="code-txt">          <span class="attr">status</span><span class="op">={</span>order.status<span class="op">}</span> <span class="cursor"></span></span></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <div class="clients reveal">
+    <div class="clients-inner">
+      <span class="clients-label">Trusted by</span>
+      <div class="clients-divider"></div>
+      <div class="clients-list">
+        <span class="client-name">Cox Automotive</span>
+        <span class="client-name">Kelly Blue Book</span>
+        <span class="client-name">Rx2GO</span>
+        <span class="client-name">Crystal</span>
+        <span class="client-name">Enterprise Clients</span>
+      </div>
+    </div>
+  </div>
+
+  <section class="section services-bg" id="services">
+    <div class="container">
+      <div class="section-header-split reveal">
+        <div>
+          <div class="section-label">What We Build</div>
+          <h2 class="section-heading">Full-Stack<br>Digital Services</h2>
+        </div>
+        <p class="section-sub" style="flex-shrink:0;max-width:380px;">End-to-end digital solutions — whether you need a mobile app, a cloud migration, or a developer to join your team.</p>
+      </div>
+      <div class="services-grid stagger">
+        <div class="service-card"><div class="service-num">01</div><div class="service-title">Mobile App Development</div><div class="service-desc">Native iOS and Android apps built for performance and scale. From concept through App Store launch and beyond.</div><div class="service-arrow">→</div></div>
+        <div class="service-card"><div class="service-num">02</div><div class="service-title">Website Development</div><div class="service-desc">Responsive, fast, and conversion-optimised websites. Custom CMS integration, performance audits, and ongoing support.</div><div class="service-arrow">→</div></div>
+        <div class="service-card"><div class="service-num">03</div><div class="service-title">Online Storefront Builder</div><div class="service-desc">E-commerce solutions built on the right platform for your volume — custom carts, payment flows, and inventory logic.</div><div class="service-arrow">→</div></div>
+        <div class="service-card"><div class="service-num">04</div><div class="service-title">Cloud Management</div><div class="service-desc">AWS, Azure, and Oracle cloud architecture, migration, and managed operations. Secure, scalable, cost-optimised infrastructure.</div><div class="service-arrow">→</div></div>
+        <div class="service-card"><div class="service-num">05</div><div class="service-title">Logo &amp; Branding</div><div class="service-desc">Brand identity systems from the ground up — logo design, color strategy, typography, and brand guidelines.</div><div class="service-arrow">→</div></div>
+        <div class="service-card"><div class="service-num">06</div><div class="service-title">Hire a Developer</div><div class="service-desc">Staff augmentation for your team. Vetted developers on flexible engagements — from sprint support to long-term embedding.</div><div class="service-arrow">→</div></div>
+      </div>
+      <div class="section-cta-row reveal">
+        <a href="services.html" class="btn-ghost">View all services &amp; process →</a>
+      </div>
+    </div>
+  </section>
+
+  <section class="section" id="work">
+    <div class="container">
+      <div class="section-header-split reveal">
+        <div>
+          <div class="section-label">Selected Work</div>
+          <h2 class="section-heading">Built for the<br>Real World</h2>
+        </div>
+        <a href="work.html" class="btn-ghost" style="flex-shrink:0;align-self:flex-end;">View All Projects →</a>
+      </div>
+      <div class="work-grid stagger">
+        <div class="work-card">
+          <div class="work-card-visual work-card-visual-rx">
+            <div class="device-phone-wrap">
+              <span class="work-platform-tag">iOS · Android</span>
+              <div class="device-phone">
+                <div class="phone-status-bar"></div>
+                <div class="phone-screen-area">
+                  <div class="placeholder-content">
+                    <div class="placeholder-icon-box"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="2" stroke="white" stroke-width="1.5"/><path d="M8 5v6M5 8h6" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></div>
+                    <span style="font-size:8px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#fff;">Screenshot</span>
+                  </div>
+                </div>
+                <div class="phone-chin-bar"></div>
+              </div>
+            </div>
+          </div>
+          <div class="work-card-body"><div class="work-card-tag">Mobile App · Healthcare</div><div class="work-card-title">On-Demand Prescription Delivery</div><div class="work-card-desc">iOS and Android app enabling patients to order prescription refills for same-day delivery directly to their door.</div></div>
+        </div>
+        <div class="work-card">
+          <div class="work-card-visual work-card-visual-cox" style="position:relative;">
+            <span class="work-platform-tag">Web Platform</span>
+            <div class="device-browser">
+              <div class="browser-bar"><div class="browser-dots"><div class="browser-dot" style="background:#FF5F57"></div><div class="browser-dot" style="background:#FFBD2E"></div><div class="browser-dot" style="background:#28C840"></div></div><div class="browser-url-bar"></div></div>
+              <div class="browser-screen"><div class="placeholder-content"><div class="placeholder-icon-box"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="2" stroke="white" stroke-width="1.5"/><path d="M8 5v6M5 8h6" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></div><span style="font-size:8px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#fff;">Screenshot</span></div></div>
+            </div>
+          </div>
+          <div class="work-card-body"><div class="work-card-tag">Web Platform · Automotive</div><div class="work-card-title">Dealer Portal &amp; Inventory System</div><div class="work-card-desc">Custom web platform for dealer inventory management and buyer engagement for one of North America's largest automotive groups.</div></div>
+        </div>
+        <div class="work-card">
+          <div class="work-card-visual work-card-visual-kbb" style="position:relative;">
+            <span class="work-platform-tag">Web App</span>
+            <div class="device-browser">
+              <div class="browser-bar"><div class="browser-dots"><div class="browser-dot" style="background:#FF5F57"></div><div class="browser-dot" style="background:#FFBD2E"></div><div class="browser-dot" style="background:#28C840"></div></div><div class="browser-url-bar"></div></div>
+              <div class="browser-screen"><div class="placeholder-content"><div class="placeholder-icon-box"><svg width="12" height="12" viewBox="0 0 16 16" fill="none"><rect x="2" y="2" width="12" height="12" rx="2" stroke="white" stroke-width="1.5"/><path d="M8 5v6M5 8h6" stroke="white" stroke-width="1.5" stroke-linecap="round"/></svg></div><span style="font-size:8px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;color:#fff;">Screenshot</span></div></div>
+            </div>
+          </div>
+          <div class="work-card-body"><div class="work-card-tag">Web App · Automotive</div><div class="work-card-title">Vehicle Valuation Tool</div><div class="work-card-desc">Feature integration and performance optimisation for the vehicle valuation interface used by millions of car buyers monthly.</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section why-bg" id="about">
+    <div class="container">
+      <div class="why-grid reveal">
+        <div class="why-emblem-wrap">
+          <div class="why-emblem-bg"></div>
+          <div class="why-emblem-content">
+            <svg width="220" height="220" viewBox="0 0 100 100" fill="none">
+              <path d="M 13 48 L 46 13 L 80 33" stroke="#8DC63F" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M 20 67 L 54 87 L 87 52" stroke="#8DC63F" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M 22 68 L 76 34" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round"/>
+            </svg>
+            <div class="why-emblem-label">Sourceful Technologies Inc</div>
+          </div>
+        </div>
+        <div>
+          <div class="section-label">Why Choose Us</div>
+          <h2 class="section-heading" style="margin-bottom:40px;">Everything Digital<br>Is Our Playground</h2>
+          <div>
+            <div class="why-point"><div class="why-point-marker"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4" stroke="#8DC63F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="why-point-content"><h4>Enterprise-Ready Architecture</h4><p>We've built for Cox Automotive, KBB, and healthcare platforms — we know how to engineer for scale, compliance, and reliability.</p></div></div>
+            <div class="why-point"><div class="why-point-marker"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4" stroke="#8DC63F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="why-point-content"><h4>Full Stack, One Partner</h4><p>Mobile, web, cloud, and brand — under one roof. No handoffs between agencies. One team owns it all.</p></div></div>
+            <div class="why-point"><div class="why-point-marker"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4" stroke="#8DC63F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="why-point-content"><h4>Cloud Agnostic Expertise</h4><p>AWS, Azure, and Oracle managed services — we work across all three major platforms depending on what serves your workload best.</p></div></div>
+            <div class="why-point"><div class="why-point-marker"><svg viewBox="0 0 16 16" fill="none"><path d="M3 8l3.5 3.5L13 4" stroke="#8DC63F" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></div><div class="why-point-content"><h4>Flexible Engagement Models</h4><p>Fixed-scope projects, ongoing retainers, or embedded developers on your team — we match the engagement to your needs.</p></div></div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="section">
+    <div class="container">
+      <div class="testimonial-card reveal">
+        <div class="testimonial-quote-mark">"</div>
+        <p class="testimonial-text">The Sourceful team delivered a mobile app that transformed how our customers access their prescriptions. The attention to detail, the speed of delivery, and the post-launch support were exceptional — they genuinely care about your product's success.</p>
+        <div class="testimonial-meta">
+          <div class="testimonial-avatar">I</div>
+          <div><div class="testimonial-name">Ivan Sandoval</div><div class="testimonial-role">Founder, Rx2GO</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="cta-section" id="contact">
+    <div class="cta-glow"></div>
+    <div class="container">
+      <div class="cta-inner reveal">
+        <div class="section-label" style="justify-content:center;display:flex;">Let's Build Together</div>
+        <h2 class="cta-heading">Ready to Build<br><em>Something Great?</em></h2>
+        <p class="cta-sub">Tell us about your project. We'll come back with a clear proposal, a realistic timeline, and a team that can actually deliver it.</p>
+        <div class="cta-btns">
+          <a href="contact.html" class="btn-lime">Start a Conversation <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <a href="services.html" class="btn-ghost">View Services</a>
+        </div>
+        <div class="cta-emblem-accent">
+          <svg width="80" height="80" viewBox="0 0 100 100" fill="none">
+            <path d="M 13 48 L 46 13 L 80 33" stroke="#8DC63F" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M 20 67 L 54 87 L 87 52" stroke="#8DC63F" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+            <path d="M 22 68 L 76 34" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round"/>
+          </svg>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo-wrap">
+            <svg width="32" height="32" viewBox="0 0 100 100" fill="none">
+              <path d="M 13 48 L 46 13 L 80 33" stroke="#8DC63F" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M 20 67 L 54 87 L 87 52" stroke="#8DC63F" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M 22 68 L 76 34" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round"/>
+            </svg>
+            <div><div class="footer-wordmark-primary">SOURCEFUL</div><div class="footer-wordmark-secondary">TECHNOLOGIES INC</div></div>
+          </div>
+          <p>A full-service digital agency building the apps, websites, and cloud systems that drive your bottom line.</p>
+        </div>
+        <div class="footer-col"><h5>Services</h5><ul><li><a href="services.html">Mobile App Development</a></li><li><a href="services.html">Website Development</a></li><li><a href="services.html">Online Storefront</a></li><li><a href="services.html">Cloud Management</a></li><li><a href="services.html">Logo &amp; Branding</a></li><li><a href="services.html">Hire a Developer</a></li></ul></div>
+        <div class="footer-col"><h5>Company</h5><ul><li><a href="work.html">Our Work</a></li><li><a href="#about">About</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+        <div class="footer-col"><h5>Contact</h5><ul><li><a href="mailto:hello@sourcefultech.com">hello@sourcefultech.com</a></li><li><a href="contact.html">Get a Quote</a></li></ul></div>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-copy">© 2026 Sourceful Technologies Inc. All rights reserved.</span>
+        <div class="footer-socials">
+          <a href="#" class="social-btn">in</a>
+          <a href="#" class="social-btn">f</a>
+          <a href="#" class="social-btn">ig</a>
+        </div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      document.documentElement.classList.add('js');
+      var nav = document.querySelector('.nav');
+      function syncNav() { nav.classList.toggle('nav-scrolled', window.scrollY > 60); }
+      window.addEventListener('scroll', syncNav, { passive: true });
+      syncNav();
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); } });
+      }, { threshold: 0.12 });
+      document.querySelectorAll('.reveal, .stagger').forEach(function (el) { io.observe(el); });
+      var rows = document.querySelectorAll('.code-row');
+      if (rows.length) { rows.forEach(function (row, i) { setTimeout(function () { row.classList.add('line-in'); }, 620 + i * 44); }); }
+      function easeOut(t) { return 1 - Math.pow(1 - t, 3); }
+      document.querySelectorAll('.stat-num[data-count]').forEach(function (el) {
+        var target = parseInt(el.dataset.count, 10), suffix = el.dataset.suffix || '', dur = 900;
+        var sio = new IntersectionObserver(function (e) {
+          if (!e[0].isIntersecting) return; sio.disconnect();
+          var t0 = null;
+          function tick(ts) { if (!t0) t0 = ts; var p = Math.min((ts - t0) / dur, 1); el.textContent = Math.round(easeOut(p) * target) + suffix; if (p < 1) requestAnimationFrame(tick); }
+          requestAnimationFrame(tick);
+        }, { threshold: 0.5 });
+        sio.observe(el);
+      });
+    })();
+  </script>
+
+</body>
+</html>

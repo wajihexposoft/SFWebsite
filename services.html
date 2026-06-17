@@ -1,0 +1,466 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Services — Sourceful Technologies Inc</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link href="https://fonts.googleapis.com/css2?family=Plus+Jakarta+Sans:wght@400;500;600;700;800;900&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --canvas:#0C1A33; --surface:#112038;
+      --card:rgba(255,255,255,.035); --card-hover:rgba(255,255,255,.065);
+      --border:rgba(255,255,255,.08); --border-strong:rgba(255,255,255,.14);
+      --brand-blue:#1E4F9E; --lime:#8DC63F; --lime-dark:#6EA52E;
+      --lime-glow:rgba(141,198,63,.12); --blue-glow:rgba(30,79,158,.25);
+      --text:#FFF; --text-muted:rgba(255,255,255,.55); --text-meta:rgba(255,255,255,.35);
+      --font:'Plus Jakarta Sans',system-ui,sans-serif;
+      --max-w:1240px; --gutter:48px;
+      --radius-sm:10px; --radius-md:16px; --radius-lg:24px;
+      --motion:200ms cubic-bezier(.2,0,0,1);
+    }
+    *,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+    html{scroll-behavior:smooth}
+    body{font-family:var(--font);background:var(--canvas);color:var(--text);-webkit-font-smoothing:antialiased;overflow-x:hidden}
+    a{text-decoration:none;color:inherit}
+    .container{max-width:var(--max-w);margin:0 auto;padding:0 var(--gutter)}
+    @media(max-width:768px){:root{--gutter:20px}}
+
+    /* NAV */
+    .nav{position:sticky;top:0;z-index:100;background:transparent;backdrop-filter:none;border-bottom:1px solid transparent;transition:background .35s cubic-bezier(.2,0,0,1),backdrop-filter .35s,border-color .35s}
+    .nav.nav-scrolled{background:rgba(12,26,51,.88);backdrop-filter:blur(16px);border-bottom-color:var(--border)}
+    .nav-inner{display:flex;align-items:center;justify-content:space-between;height:72px;max-width:var(--max-w);margin:0 auto;padding:0 var(--gutter)}
+    .nav-logo{display:flex;align-items:center;gap:12px}
+    .nav-wordmark{display:flex;flex-direction:column;gap:1px}
+    .nav-wordmark-primary{font-size:15px;font-weight:800;color:#fff;letter-spacing:.14em;line-height:1}
+    .nav-wordmark-secondary{font-size:10px;font-weight:500;color:var(--text-meta);letter-spacing:.16em;line-height:1}
+    .nav-links{display:flex;align-items:center;gap:36px;list-style:none}
+    .nav-links a{font-size:14px;font-weight:500;color:var(--text-muted);transition:color var(--motion)}
+    .nav-links a:hover{color:var(--text)} .nav-links a.active{color:var(--lime)}
+    .nav-cta{background:var(--lime);color:#0C1A33;font-size:13px;font-weight:700;padding:10px 20px;border-radius:var(--radius-sm);transition:background var(--motion)}
+    .nav-cta:hover{background:var(--lime-dark)}
+    .nav-mobile-hide{display:flex;align-items:center;gap:36px}
+    @media(max-width:768px){.nav-mobile-hide{display:none}}
+
+    /* BUTTONS */
+    .btn-lime{display:inline-flex;align-items:center;gap:8px;background:var(--lime);color:#0C1A33;font-size:14px;font-weight:700;padding:14px 28px;border-radius:var(--radius-sm);transition:background var(--motion)}
+    .btn-lime:hover{background:var(--lime-dark)}
+    .btn-ghost{display:inline-flex;align-items:center;gap:8px;border:1px solid var(--border-strong);color:var(--text-muted);font-size:14px;font-weight:600;padding:13px 24px;border-radius:var(--radius-sm);transition:border-color var(--motion),color var(--motion)}
+    .btn-ghost:hover{border-color:rgba(255,255,255,.3);color:var(--text)}
+
+    /* PAGE HERO */
+    .page-hero{padding:88px 0 72px;position:relative;overflow:hidden;border-bottom:1px solid var(--border)}
+    .page-hero-glow{position:absolute;top:-80px;right:-100px;width:600px;height:600px;border-radius:50%;background:radial-gradient(circle,var(--blue-glow) 0%,transparent 65%);pointer-events:none}
+    .page-hero-inner{position:relative;z-index:1;max-width:var(--max-w);margin:0 auto;padding:0 var(--gutter)}
+    .page-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--lime);margin-bottom:20px}
+    .page-title{font-size:clamp(48px,6vw,76px);font-weight:900;line-height:1.04;letter-spacing:-.03em;color:var(--text);margin-bottom:24px}
+    .page-title em{font-style:normal;color:var(--lime)}
+    .page-sub{font-size:18px;color:var(--text-muted);line-height:1.7;max-width:560px}
+
+    /* SECTION */
+    .section{padding:96px 0}
+    .section-label{font-size:11px;font-weight:700;letter-spacing:.14em;text-transform:uppercase;color:var(--lime);margin-bottom:16px}
+    .section-heading{font-size:clamp(32px,3.5vw,48px);font-weight:800;letter-spacing:-.02em;line-height:1.12;color:var(--text);margin-bottom:16px}
+    .section-sub{font-size:16px;color:var(--text-muted);line-height:1.7;max-width:560px}
+    .section-header{margin-bottom:60px}
+    .surface-bg{background:var(--surface);border-top:1px solid var(--border);border-bottom:1px solid var(--border)}
+
+    /* SERVICES GRID */
+    .services-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}
+    @media(max-width:900px){.services-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:540px){.services-grid{grid-template-columns:1fr}}
+    .service-card{background:var(--surface);padding:44px 36px;display:flex;flex-direction:column;gap:14px;transition:background var(--motion)}
+    .service-card:hover{background:#182B4A}
+    .service-num{font-size:12px;font-weight:700;color:var(--lime);letter-spacing:.1em;opacity:.7}
+    .service-title{font-size:20px;font-weight:800;color:var(--text);line-height:1.2}
+    .service-desc{font-size:14px;color:var(--text-muted);line-height:1.7;flex:1}
+    .service-stack{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+    .service-tag{font-size:11px;font-weight:600;color:var(--lime);background:var(--lime-glow);border:1px solid rgba(141,198,63,.2);padding:3px 10px;border-radius:100px;letter-spacing:.04em}
+
+    /* PROCESS */
+    .process-grid{display:grid;grid-template-columns:repeat(5,1fr);gap:0;position:relative}
+    @media(max-width:900px){.process-grid{grid-template-columns:1fr;gap:1px;background:var(--border);border:1px solid var(--border);border-radius:var(--radius-lg);overflow:hidden}}
+    .process-grid::before{content:'';position:absolute;top:28px;left:calc(10% + 28px);right:calc(10% + 28px);height:1px;background:var(--border);z-index:0}
+    @media(max-width:900px){.process-grid::before{display:none}}
+    .process-step{position:relative;z-index:1;display:flex;flex-direction:column;align-items:center;text-align:center;padding:0 20px 40px}
+    @media(max-width:900px){.process-step{flex-direction:row;text-align:left;align-items:flex-start;padding:28px 28px;background:var(--surface);gap:20px}}
+    .process-num{width:56px;height:56px;border-radius:50%;background:var(--canvas);border:1px solid var(--border-strong);display:flex;align-items:center;justify-content:center;font-size:14px;font-weight:800;color:var(--lime);letter-spacing:.06em;flex-shrink:0;margin-bottom:24px}
+    @media(max-width:900px){.process-num{margin-bottom:0}}
+    .process-body h4{font-size:16px;font-weight:800;color:var(--text);margin-bottom:8px}
+    .process-body p{font-size:13px;color:var(--text-muted);line-height:1.65}
+
+    /* TECH STACK */
+    .tech-section{padding:80px 0}
+    .tech-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:24px}
+    @media(max-width:900px){.tech-grid{grid-template-columns:1fr 1fr}}
+    @media(max-width:540px){.tech-grid{grid-template-columns:1fr}}
+    .tech-group{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-md);padding:28px 24px}
+    .tech-group-label{font-size:11px;font-weight:700;letter-spacing:.12em;text-transform:uppercase;color:var(--lime);margin-bottom:16px}
+    .tech-tags{display:flex;flex-wrap:wrap;gap:8px}
+    .tech-tag{font-size:12px;font-weight:600;color:var(--text-muted);background:rgba(255,255,255,.05);border:1px solid var(--border);padding:5px 12px;border-radius:6px}
+
+    /* ENGAGEMENT MODELS */
+    .models-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px}
+    @media(max-width:900px){.models-grid{grid-template-columns:1fr}}
+    .model-card{background:var(--card);border:1px solid var(--border);border-radius:var(--radius-lg);padding:40px 36px;display:flex;flex-direction:column;gap:16px;transition:border-color var(--motion),background var(--motion)}
+    .model-card:hover{border-color:rgba(141,198,63,.3);background:var(--card-hover)}
+    .model-card.featured{background:var(--brand-blue);border-color:rgba(141,198,63,.3)}
+    .model-icon{width:44px;height:44px;border-radius:12px;background:var(--lime-glow);border:1px solid rgba(141,198,63,.25);display:flex;align-items:center;justify-content:center;margin-bottom:4px}
+    .model-name{font-size:20px;font-weight:800;color:var(--text);line-height:1.2}
+    .model-tagline{font-size:13px;font-weight:600;color:var(--lime);letter-spacing:.04em}
+    .model-desc{font-size:14px;color:var(--text-muted);line-height:1.7;flex:1}
+    .model-list{list-style:none;display:flex;flex-direction:column;gap:8px}
+    .model-list li{font-size:13px;color:var(--text-muted);padding-left:18px;position:relative;line-height:1.5}
+    .model-list li::before{content:'→';position:absolute;left:0;color:var(--lime);font-size:11px}
+
+    /* CTA */
+    .cta-section{padding:96px 0;text-align:center;position:relative;overflow:hidden}
+    .cta-glow{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:600px;height:400px;border-radius:50%;background:radial-gradient(ellipse,var(--blue-glow) 0%,transparent 70%);pointer-events:none}
+    .cta-inner{position:relative;z-index:1}
+    .cta-heading{font-size:clamp(36px,4.5vw,56px);font-weight:900;letter-spacing:-.025em;line-height:1.1;color:var(--text);margin-bottom:20px}
+    .cta-heading em{font-style:normal;color:var(--lime)}
+    .cta-sub{font-size:17px;color:var(--text-muted);line-height:1.65;max-width:480px;margin:0 auto 40px}
+    .cta-btns{display:flex;gap:14px;justify-content:center;flex-wrap:wrap}
+
+    /* FOOTER */
+    .footer{background:#080F20;border-top:1px solid var(--border);padding:60px 0 40px}
+    .footer-inner{max-width:var(--max-w);margin:0 auto;padding:0 var(--gutter)}
+    .footer-top{display:grid;grid-template-columns:1.5fr repeat(3,1fr);gap:48px;padding-bottom:48px;border-bottom:1px solid var(--border);margin-bottom:32px}
+    @media(max-width:900px){.footer-top{grid-template-columns:1fr 1fr}}
+    @media(max-width:540px){.footer-top{grid-template-columns:1fr}}
+    .footer-brand p{font-size:14px;color:var(--text-meta);line-height:1.7;margin-top:16px;max-width:280px}
+    .footer-logo-wrap{display:flex;align-items:center;gap:12px}
+    .footer-wordmark-primary{font-size:14px;font-weight:800;color:#fff;letter-spacing:.12em;line-height:1}
+    .footer-wordmark-secondary{font-size:9px;font-weight:500;color:var(--text-meta);letter-spacing:.14em;line-height:1}
+    .footer-col h5{font-size:12px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;color:var(--text-meta);margin-bottom:20px}
+    .footer-col ul{list-style:none;display:flex;flex-direction:column;gap:12px}
+    .footer-col ul li a{font-size:14px;color:rgba(255,255,255,.45);transition:color var(--motion)}
+    .footer-col ul li a:hover{color:rgba(255,255,255,.8)}
+    .footer-bottom{display:flex;align-items:center;justify-content:space-between;gap:20px;flex-wrap:wrap}
+    .footer-copy{font-size:13px;color:var(--text-meta)}
+    .footer-socials{display:flex;gap:16px}
+    .social-btn{width:36px;height:36px;border:1px solid var(--border);border-radius:8px;display:flex;align-items:center;justify-content:center;color:var(--text-meta);font-size:14px;font-weight:700;transition:border-color var(--motion),color var(--motion)}
+    .social-btn:hover{border-color:var(--lime);color:var(--lime)}
+
+    /* ANIMATIONS */
+    @media(prefers-reduced-motion:reduce){*,*::before,*::after{animation-duration:.01ms !important;transition-duration:.01ms !important}}
+    .js .reveal{opacity:0;transform:translateY(20px);transition:opacity .55s cubic-bezier(.2,0,0,1),transform .55s cubic-bezier(.2,0,0,1)}
+    .js .reveal.is-visible{opacity:1;transform:none}
+    .js .stagger>*{opacity:0;transform:translateY(14px);transition:opacity .45s cubic-bezier(.2,0,0,1),transform .45s cubic-bezier(.2,0,0,1)}
+    .js .stagger.is-visible>*:nth-child(1){opacity:1;transform:none;transition-delay:0ms}
+    .js .stagger.is-visible>*:nth-child(2){opacity:1;transform:none;transition-delay:70ms}
+    .js .stagger.is-visible>*:nth-child(3){opacity:1;transform:none;transition-delay:140ms}
+    .js .stagger.is-visible>*:nth-child(4){opacity:1;transform:none;transition-delay:210ms}
+    .js .stagger.is-visible>*:nth-child(5){opacity:1;transform:none;transition-delay:280ms}
+    .js .stagger.is-visible>*:nth-child(6){opacity:1;transform:none;transition-delay:350ms}
+  </style>
+</head>
+<body>
+
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">
+        <svg width="38" height="38" viewBox="0 0 100 100" fill="none">
+          <path d="M 13 48 L 46 13 L 80 33" stroke="#8DC63F" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M 20 67 L 54 87 L 87 52" stroke="#8DC63F" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+          <path d="M 22 68 L 76 34" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round"/>
+        </svg>
+        <div class="nav-wordmark">
+          <span class="nav-wordmark-primary">SOURCEFUL</span>
+          <span class="nav-wordmark-secondary">TECHNOLOGIES INC</span>
+        </div>
+      </a>
+      <nav class="nav-mobile-hide">
+        <ul class="nav-links">
+          <li><a href="services.html" class="active">Services</a></li>
+          <li><a href="work.html">Our Work</a></li>
+          <li><a href="index.html#about">About</a></li>
+        </ul>
+      </nav>
+      <a href="contact.html" class="nav-cta">Get in Touch</a>
+    </div>
+  </header>
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="page-hero-glow"></div>
+    <div class="page-hero-inner">
+      <div class="page-label">What We Build</div>
+      <h1 class="page-title">Full-Stack<br><em>Digital Services</em></h1>
+      <p class="page-sub">Six service lines, one team. We don't hand you off between agencies — we own the whole stack, from mobile to cloud.</p>
+    </div>
+  </section>
+
+  <!-- SERVICES GRID -->
+  <section class="section surface-bg">
+    <div class="container">
+      <div class="services-grid stagger">
+        <div class="service-card">
+          <div class="service-num">01</div>
+          <div class="service-title">Mobile App Development</div>
+          <div class="service-desc">Cross-platform and native mobile applications built for performance, scalability, and AppStore success. We handle everything from UX design through backend integration and post-launch support.</div>
+          <div class="service-stack">
+            <span class="service-tag">React Native</span>
+            <span class="service-tag">Swift</span>
+            <span class="service-tag">Kotlin</span>
+          </div>
+        </div>
+        <div class="service-card">
+          <div class="service-num">02</div>
+          <div class="service-title">Website Development</div>
+          <div class="service-desc">Responsive, fast, and conversion-optimised websites. We build on the right stack for your goals — custom CMS, headless commerce, or marketing sites that are a pleasure to maintain.</div>
+          <div class="service-stack">
+            <span class="service-tag">Next.js</span>
+            <span class="service-tag">TypeScript</span>
+            <span class="service-tag">WordPress</span>
+          </div>
+        </div>
+        <div class="service-card">
+          <div class="service-num">03</div>
+          <div class="service-title">Online Storefront Builder</div>
+          <div class="service-desc">E-commerce solutions architected for your transaction volume. Custom checkout flows, payment integrations, inventory logic, and the performance to handle peak traffic without a sweat.</div>
+          <div class="service-stack">
+            <span class="service-tag">Shopify</span>
+            <span class="service-tag">WooCommerce</span>
+            <span class="service-tag">Custom</span>
+          </div>
+        </div>
+        <div class="service-card">
+          <div class="service-num">04</div>
+          <div class="service-title">Cloud Management</div>
+          <div class="service-desc">Architecture, migration, and managed operations across AWS, Azure, and Oracle OCI. We design for security, cost-efficiency, and the kind of reliability that lets your team sleep at night.</div>
+          <div class="service-stack">
+            <span class="service-tag">AWS</span>
+            <span class="service-tag">Azure</span>
+            <span class="service-tag">Oracle OCI</span>
+          </div>
+        </div>
+        <div class="service-card">
+          <div class="service-num">05</div>
+          <div class="service-title">Logo &amp; Branding</div>
+          <div class="service-desc">Brand identity systems built to last. Logo design, colour strategy, typography, brand guidelines, and the full suite of collateral — done once, done right, done for the long run.</div>
+          <div class="service-stack">
+            <span class="service-tag">Identity</span>
+            <span class="service-tag">Guidelines</span>
+            <span class="service-tag">Collateral</span>
+          </div>
+        </div>
+        <div class="service-card">
+          <div class="service-num">06</div>
+          <div class="service-title">Hire a Developer</div>
+          <div class="service-desc">Vetted developers embedded in your team on flexible engagements. Whether you need sprint support for a crunch or a long-term technical partner, we staff to the problem, not a headcount target.</div>
+          <div class="service-stack">
+            <span class="service-tag">Staff Aug</span>
+            <span class="service-tag">Sprint Teams</span>
+            <span class="service-tag">Long-Term</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROCESS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header reveal">
+        <div class="section-label">How We Work</div>
+        <h2 class="section-heading">From Brief to Launch —<br>No Surprises</h2>
+        <p class="section-sub" style="margin-top:12px;">A clear process is what separates agencies that deliver from agencies that disappoint. Ours is written down before we start.</p>
+      </div>
+      <div class="process-grid stagger">
+        <div class="process-step">
+          <div class="process-num">01</div>
+          <div class="process-body">
+            <h4>Discover</h4>
+            <p>Stakeholder interviews, competitive analysis, and requirements capture before a line of code is written.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="process-num">02</div>
+          <div class="process-body">
+            <h4>Define</h4>
+            <p>Scope, architecture, tech stack, and timeline locked in a written proposal you approve before work begins.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="process-num">03</div>
+          <div class="process-body">
+            <h4>Design</h4>
+            <p>UX flows, wireframes, and visual designs reviewed and signed off before development starts.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="process-num">04</div>
+          <div class="process-body">
+            <h4>Build</h4>
+            <p>Iterative development with weekly demos. You see working software every Friday — not a status deck.</p>
+          </div>
+        </div>
+        <div class="process-step">
+          <div class="process-num">05</div>
+          <div class="process-body">
+            <h4>Launch</h4>
+            <p>We handle deployment, QA, and post-launch monitoring. Your team gets full codebase ownership at handoff.</p>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- TECH STACK -->
+  <section class="tech-section surface-bg">
+    <div class="container">
+      <div class="section-header reveal" style="margin-bottom:48px;">
+        <div class="section-label">Technologies</div>
+        <h2 class="section-heading">We Work Across<br>the Full Stack</h2>
+      </div>
+      <div class="tech-grid stagger">
+        <div class="tech-group">
+          <div class="tech-group-label">Mobile</div>
+          <div class="tech-tags">
+            <span class="tech-tag">React Native</span>
+            <span class="tech-tag">Swift</span>
+            <span class="tech-tag">Kotlin</span>
+            <span class="tech-tag">Expo</span>
+          </div>
+        </div>
+        <div class="tech-group">
+          <div class="tech-group-label">Web &amp; Frontend</div>
+          <div class="tech-tags">
+            <span class="tech-tag">React</span>
+            <span class="tech-tag">Next.js</span>
+            <span class="tech-tag">TypeScript</span>
+            <span class="tech-tag">Vue.js</span>
+          </div>
+        </div>
+        <div class="tech-group">
+          <div class="tech-group-label">Backend &amp; API</div>
+          <div class="tech-tags">
+            <span class="tech-tag">Node.js</span>
+            <span class="tech-tag">Python</span>
+            <span class="tech-tag">Laravel</span>
+            <span class="tech-tag">GraphQL</span>
+          </div>
+        </div>
+        <div class="tech-group">
+          <div class="tech-group-label">Cloud &amp; DevOps</div>
+          <div class="tech-tags">
+            <span class="tech-tag">AWS</span>
+            <span class="tech-tag">Azure</span>
+            <span class="tech-tag">Oracle OCI</span>
+            <span class="tech-tag">Docker</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ENGAGEMENT MODELS -->
+  <section class="section">
+    <div class="container">
+      <div class="section-header reveal" style="margin-bottom:56px;">
+        <div class="section-label">Engagement Models</div>
+        <h2 class="section-heading">We Work the Way<br>You Need</h2>
+        <p class="section-sub" style="margin-top:12px;">No one-size-fits-all contracts. Pick the engagement model that matches your stage, budget, and team structure.</p>
+      </div>
+      <div class="models-grid stagger">
+        <div class="model-card">
+          <div class="model-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><rect x="3" y="3" width="18" height="18" rx="3" stroke="#8DC63F" stroke-width="1.8"/><path d="M8 12h8M12 8v8" stroke="#8DC63F" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </div>
+          <div class="model-name">Project-Based</div>
+          <div class="model-tagline">Fixed scope · Fixed price</div>
+          <div class="model-desc">You know what you need. We scope it, price it, and deliver it. Best for defined products with clear requirements.</div>
+          <ul class="model-list">
+            <li>Written spec before work starts</li>
+            <li>Milestone-based payment schedule</li>
+            <li>Full codebase handoff at launch</li>
+          </ul>
+        </div>
+        <div class="model-card featured">
+          <div class="model-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83" stroke="#8DC63F" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </div>
+          <div class="model-name">Retainer</div>
+          <div class="model-tagline">Monthly capacity · Ongoing partnership</div>
+          <div class="model-desc">You need a consistent development partner without the overhead of a full-time hire. We dedicate capacity to your roadmap every month.</div>
+          <ul class="model-list">
+            <li>Dedicated monthly sprint capacity</li>
+            <li>Priority response and scheduling</li>
+            <li>Strategic product advisory included</li>
+          </ul>
+        </div>
+        <div class="model-card">
+          <div class="model-icon">
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none"><circle cx="9" cy="7" r="3" stroke="#8DC63F" stroke-width="1.8"/><circle cx="16" cy="10" r="2.5" stroke="#8DC63F" stroke-width="1.8"/><path d="M3 20c0-3.3 2.7-6 6-6s6 2.7 6 6" stroke="#8DC63F" stroke-width="1.8" stroke-linecap="round"/><path d="M16 14c1.8.4 3 1.8 3 3.5" stroke="#8DC63F" stroke-width="1.8" stroke-linecap="round"/></svg>
+          </div>
+          <div class="model-name">Staff Augmentation</div>
+          <div class="model-tagline">Your tools · Your team · Our people</div>
+          <div class="model-desc">You have the team structure but need to scale fast. Our developers join your Slack, your sprints, and your codebase as if they were always there.</div>
+          <ul class="model-list">
+            <li>Works in your existing workflow</li>
+            <li>Flexible weekly or monthly terms</li>
+            <li>Easy to scale up or down</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- CTA -->
+  <section class="cta-section">
+    <div class="cta-glow"></div>
+    <div class="container">
+      <div class="cta-inner reveal">
+        <div class="section-label" style="justify-content:center;display:flex;">Ready to Start?</div>
+        <h2 class="cta-heading">Tell Us About<br><em>Your Project</em></h2>
+        <p class="cta-sub">We'll come back within one business day with a clear next step — no obligation, no sales pressure.</p>
+        <div class="cta-btns">
+          <a href="contact.html" class="btn-lime">Start a Conversation <svg width="14" height="14" viewBox="0 0 16 16" fill="none"><path d="M3 8h10M9 4l4 4-4 4" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/></svg></a>
+          <a href="work.html" class="btn-ghost">See Our Work</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <footer class="footer">
+    <div class="footer-inner">
+      <div class="footer-top">
+        <div class="footer-brand">
+          <div class="footer-logo-wrap">
+            <svg width="32" height="32" viewBox="0 0 100 100" fill="none">
+              <path d="M 13 48 L 46 13 L 80 33" stroke="#8DC63F" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M 20 67 L 54 87 L 87 52" stroke="#8DC63F" stroke-width="14" stroke-linecap="round" stroke-linejoin="round"/>
+              <path d="M 22 68 L 76 34" stroke="#FFFFFF" stroke-width="12" stroke-linecap="round"/>
+            </svg>
+            <div><div class="footer-wordmark-primary">SOURCEFUL</div><div class="footer-wordmark-secondary">TECHNOLOGIES INC</div></div>
+          </div>
+          <p>A full-service digital agency building the apps, websites, and cloud systems that drive your bottom line.</p>
+        </div>
+        <div class="footer-col"><h5>Services</h5><ul><li><a href="services.html">Mobile App Development</a></li><li><a href="services.html">Website Development</a></li><li><a href="services.html">Online Storefront</a></li><li><a href="services.html">Cloud Management</a></li><li><a href="services.html">Logo &amp; Branding</a></li><li><a href="services.html">Hire a Developer</a></li></ul></div>
+        <div class="footer-col"><h5>Company</h5><ul><li><a href="work.html">Our Work</a></li><li><a href="index.html#about">About</a></li><li><a href="contact.html">Contact</a></li></ul></div>
+        <div class="footer-col"><h5>Contact</h5><ul><li><a href="mailto:hello@sourcefultech.com">hello@sourcefultech.com</a></li><li><a href="contact.html">Get a Quote</a></li></ul></div>
+      </div>
+      <div class="footer-bottom">
+        <span class="footer-copy">© 2026 Sourceful Technologies Inc. All rights reserved.</span>
+        <div class="footer-socials"><a href="#" class="social-btn">in</a><a href="#" class="social-btn">f</a><a href="#" class="social-btn">ig</a></div>
+      </div>
+    </div>
+  </footer>
+
+  <script>
+    (function () {
+      document.documentElement.classList.add('js');
+      var nav = document.querySelector('.nav');
+      function syncNav() { nav.classList.toggle('nav-scrolled', window.scrollY > 60); }
+      window.addEventListener('scroll', syncNav, { passive: true });
+      syncNav();
+      var io = new IntersectionObserver(function (entries) {
+        entries.forEach(function (e) { if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); } });
+      }, { threshold: 0.12 });
+      document.querySelectorAll('.reveal, .stagger').forEach(function (el) { io.observe(el); });
+    })();
+  </script>
+
+</body>
+</html>
